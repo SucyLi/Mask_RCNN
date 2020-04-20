@@ -1,0 +1,2 @@
+# python samples/tissue/tissue.py train --dataset /Users/xinhui.li/Documents/monkey-segmentation/Mask_RCNN/datasets/tissue --weights coco --logs /Users/xinhui.li/Documents/monkey-segmentation/Mask_RCNN/outputs
+python samples/tissue/tissue.py train --dataset /media/ebs/data/hcp/train/t1w --weights coco --logs /media/ebs/out/hcp/mrcnn

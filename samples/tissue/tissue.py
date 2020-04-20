@@ -27,7 +27,7 @@ import skimage.draw
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../../")
-TISSUE_DIR = os.path.join(ROOT_DIR, "datasets/tissue")
+# TISSUE_DIR = os.path.join(ROOT_DIR, "datasets/tissue")
 
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
@@ -80,7 +80,7 @@ class TissueDataset(utils.Dataset):
     def load_tissue(self, dataset_dir, subset):
         """Load a subset of the tissue dataset.
         dataset_dir: Root directory of the dataset.
-        subset: Subset to load: train or val
+        subset: Subset to load: train or valid
         """
         # Add classes. We have only one class to add.
         self.add_class("tissue", 1, "wm")
@@ -91,7 +91,7 @@ class TissueDataset(utils.Dataset):
         self.add_class("tissue", 6, "eye")
 
         # Train or validation dataset?
-        assert subset in ["train", "val"]
+        assert subset in ["train", "valid"]
         dataset_dir = os.path.join(dataset_dir, subset)
 
         t1_dir = os.path.join(dataset_dir, "t1w")
@@ -165,7 +165,7 @@ def train(model):
 
     # Validation dataset
     dataset_val = TissueDataset()
-    dataset_val.load_tissue(args.dataset, "val")
+    dataset_val.load_tissue(args.dataset, "valid")
     dataset_val.prepare()
 
     # *** This training schedule is an example. Update to your needs ***
@@ -187,13 +187,13 @@ if __name__ == '__main__':
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description='Train Mask R-CNN to detect balloons.')
+        description='Train Mask R-CNN to detect tissues given fMRI scans.')
     parser.add_argument("command",
                         metavar="<command>",
                         help="'train'")
     parser.add_argument('--dataset', required=False,
-                        metavar="/path/to/balloon/dataset/",
-                        help='Directory of the Balloon dataset')
+                        metavar="/path/to/tissue/dataset/",
+                        help='Directory of the tissue dataset')
     parser.add_argument('--weights', required=True,
                         metavar="/path/to/weights.h5",
                         help="Path to weights .h5 file or 'coco'")
